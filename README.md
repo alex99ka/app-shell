@@ -140,8 +140,13 @@ chmod 600 .env data/service-account.json
 docker compose up -d --build
 ```
 
-- Telegram: create a bot with @BotFather, message it once, read your chat id
-  from `https://api.telegram.org/bot<token>/getUpdates`.
+- Telegram: **every app uses the same shared bot**; don't make a new one.
+  Copy `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` from another app's `.env` on
+  the Pi. Each message starts with `APP_NAME`, which is how you tell apps
+  apart. Servers only call `sendMessage`, never `getUpdates` or a webhook,
+  because another service may be reading the bot's updates. Only the first
+  time ever: create the bot with @BotFather, message it once, and read your chat
+  id from `https://api.telegram.org/bot<token>/getUpdates`.
 - Drive: `python server/tools/drive_token.py <desktop client id> <secret>` on
   the PC prints the three `DRIVE_*` lines.
 - Add an Uptime Kuma HTTP monitor for `<SERVER_URL>/health`.

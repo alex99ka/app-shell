@@ -1,6 +1,6 @@
 """Messages to the builder's Telegram: problem reports and job failures. The
-bot token lives only in the Pi's .env (made with @BotFather); the chat id is
-the builder's own chat with that bot."""
+bot is shared by every app (messages start with APP_NAME), so this only ever
+calls sendMessage. Token and chat id live only in the Pi's .env."""
 
 import logging
 import os
